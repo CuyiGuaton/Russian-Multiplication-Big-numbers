@@ -49,8 +49,8 @@ void longsum(const char *a, const char *b, char *c)
 
             # define I(a) (a - '0')                           // Se convierte "a" en int
             for (i = la - 1, k = i + 1; i >= 0; i--)
-            {   carry = 0;
-                n = I(a[i]) + I(aux[i]) + I(c[k]) + carry;
+            {
+                n = I(a[i]) + I(aux[i]) + I(c[k]);
                 carry = n / 10;
 
                 c[k] = (n % 10) + '0';
