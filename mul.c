@@ -6,9 +6,17 @@
 void longmulti(const char *a, char *c);
 
 int main(int argc, char const *argv[]) {
-  char *c= (char *)malloc(strlen(argv[1]));
+  char *c= (char *)malloc(10000000);
+  char *a= (char *)malloc(10000000);
 	longmulti(argv[1],c);
-	printf("%s * 2 = %s\n", argv[1],c);
+  strcpy(a,c);
+  int i;
+  for( i = 0; i<100;i++){
+  printf("%s\n", a);
+  longmulti(a,c);
+  strcpy(a,c);
+  }
+	printf("%s * 2^4 = %s\n", argv[1],c);
 	return 0;
 }
 
