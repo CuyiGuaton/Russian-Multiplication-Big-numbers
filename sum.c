@@ -1,38 +1,41 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 #define I(a) (a - '0')
-#define MAX 1024
 
 
-int main()
-{
-	char a[MAX] = "99999";
-	char b[MAX] = "1111";
-  char c[MAX];
+void longsum(const char * a,  const char * b, char * c);
+
+int main(int argc, char const *argv[]) {
+  char *c= (char *)malloc(strlen(argv[1]) + strlen(argv[2]));
+	longsum(argv[1],argv[2],c);
+	printf("%s + %s = %s\n", argv[1],argv[2],c);
+	return 0;
+}
 
 
+void longsum(const char * a,  const char * b, char * c){
   int la = strlen(a);
   int lb = strlen(b);
   int carry = 0;
   int sum;
-  memset(c, '0', la+1);
-  c[la+1] = '\0';
-  while( lb >  0) {
-      sum = I(a[la-1]) + I(b[lb-1]) + carry;
+  memset(c, '0', la+1); //llena c de 0
+	//Crea un arreglo aux con el mismo largo que a pero con los valores de b
+	char *aux= (char *)malloc(la-lb);
+	memset(aux, '0', la - lb);
+	strcat(aux,b);
+  while( la >  0) {
+      sum = I(a[la-1]) + I(aux[la-1]) + carry;
       carry = sum/10;
       c[la] = sum%10 + '0';
-      //printf("%c\n", c[la]);
       la--;
-      lb--;
   }
-
-  while (la>0) {
-    c[la] = a[la-1];
-    la--;
-  }
-
-  printf("%s + %s = %s\n", a,b,c);
-
-	return 0;
+	if (carry >0) {
+		c[0] = carry + '0';
+	}
+	la = lb = strlen(a);
+	while (c[0] == '0' && la > 1) {
+			memmove(c, c + 1, la--);
+			c[lb] = '\0';
+	}
 }
