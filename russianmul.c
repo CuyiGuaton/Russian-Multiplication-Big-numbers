@@ -2,22 +2,22 @@
 #include <string.h>
 #include <stdlib.h>
 #define I(a) (a - '0')
-#define MAX 1000000
+#define MAX 100000000
 
 void longdiv(char *a, char *c);
 void longmulti(const char *a, char *c);
 void longsum(const char * a,  const char * b, char * c);
 
+
 int main(int argc, char const *argv[]) {
 	int la = strlen(argv[1]);
   int lb = strlen(argv[2]);
-
 	char *a = (char *)malloc(la);
 	char *aux =(char *)malloc(la);
-	char *b = (char *)malloc(lb*MAX);
-	char *aux2 = (char *)malloc(lb*MAX);
-  char *result= (char *)malloc((la+lb)*MAX); //RESULTADO
-	char *aux3 = (char *)malloc((la+lb)*MAX);
+	char *b = (char *)malloc(lb+MAX);
+	char *aux2 = (char *)malloc(lb+MAX);
+  char *result= (char *)malloc((la+lb)+MAX); //RESULTADO
+	char *aux3 = (char *)malloc(MAX);
 	//char *aux = la > lb ? (char *)malloc(la) : (char *)malloc(lb) ;
 
 	strcpy(a,argv[1]);
@@ -25,9 +25,9 @@ int main(int argc, char const *argv[]) {
 
 	while (a[0]) {
 		if( I(a[strlen(a)-1]) % 2==1){ //si a es impar
-			//printf("%s - %i \n", a, I(a[strlen(a)-1]) );
-	//			longsum(b,result,aux3);
-		//		strcpy(result,aux3);
+				//printf("%s %s %s\n", b,result, aux3);
+				longsum(b,result,aux3);
+				strcpy(result,aux3);
 		}
 		longdiv(a,aux);
 		strcpy(a,aux);
@@ -46,9 +46,7 @@ int main(int argc, char const *argv[]) {
 }
 
 
-void longdiv(char *a, char *c)
-{
-
+void longdiv(char *a, char *c){
     int la = strlen(a);
     memset(c, '0', la);
     c[la] = '\0';
@@ -90,15 +88,15 @@ void longmulti(const char *a, char *c){
 
 
 void longsum(const char * a,  const char * b, char * c){
-
   int la = strlen(a);
   int lb = strlen(b);
   int carry = 0;
   int sum;
   memset(c, '0', la+1); //llena c de 0
 	//Crea un arreglo aux con el mismo largo que a pero con los valores de b
-	char *aux= (char *)malloc(lb+(lb-la)+1);
-	memset(aux, '0', la - lb);
+	char *aux= (char *)malloc(la);
+	memset(aux, '0', la-lb);
+  aux[la-lb] = '\0';
 	strcat(aux,b);
   while( la >  0) {
       sum = I(a[la-1]) + I(aux[la-1]) + carry;
@@ -110,8 +108,9 @@ void longsum(const char * a,  const char * b, char * c){
 		c[0] = carry + '0';
 	}
 	la = lb = strlen(a);
-	if(c[0] == '0'){
-			memmove(c, c + 1, la);
-	     c[la] = '\0';
-  }
+  if(c[0] == '0'){
+      memmove(c, c + 1, la);
+       c[la] = '\0';
+     }
+
 }
