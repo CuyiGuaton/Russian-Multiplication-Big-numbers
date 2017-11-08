@@ -4,7 +4,7 @@
 #define I(a) (a - '0')
 
 
-void longdiv(const char *a, char *c);
+void longdiv(char *a, char *c);
 void longmulti(const char *a, char *c);
 void longsum(const char * a,  const char * b, char * c);
 
@@ -15,17 +15,31 @@ int main(int argc, char const *argv[]) {
 	char *a = (char *)malloc(la);
 	char *b = (char *)malloc(lb);
   char *result= (char *)malloc(la+lb); //RESULTADO
+	char *aux =(char *)malloc(la+lb);
+	//char *aux = la > lb ? (char *)malloc(la) : (char *)malloc(lb) ;
 
-	char *aux = la > lb ? (char *)malloc(la) : (char *)malloc(lb) ;
 	strcpy(a,argv[1]);
 	strcpy(b,argv[2]);
 	//longdiv(a,result);
 	//printf("%s / 2 = %s\n", a,result);
+
+	while (a[0] != '\0') {
+		if(a[strlen(a)-1] % 2==1){ //si a es impar
+				longsum(b,result,aux);
+				strcpy(result,aux);
+		}
+		longdiv(a,aux);
+		strcpy(a,aux);
+		longmulti(b,aux);
+		strcpy(b,aux);
+		printf("%s %s %s\n", a,b, result);
+	}
+	printf("\n Resultado = %s\n", result);
 	return 0;
 }
 
 
-void longdiv(const char *a, char *c)
+void longdiv(char *a, char *c)
 {
     int la = strlen(a);
     memset(c, '0', la);
