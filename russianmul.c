@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #define I(a) (a - '0')
-#define MAX 100
+#define MAX 1000000
 
 void longdiv(char *a, char *c);
 void longmulti(const char *a, char *c);
@@ -23,11 +23,11 @@ int main(int argc, char const *argv[]) {
 	strcpy(a,argv[1]);
 	strcpy(b,argv[2]);
 
-	while (a[0] != '\0') {
-
+	while (a[0]) {
 		if( I(a[strlen(a)-1]) % 2==1){ //si a es impar
-				longsum(b,result,aux3);
-				strcpy(result,aux3);
+			//printf("%s - %i \n", a, I(a[strlen(a)-1]) );
+	//			longsum(b,result,aux3);
+		//		strcpy(result,aux3);
 		}
 		longdiv(a,aux);
 		strcpy(a,aux);
