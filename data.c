@@ -14,10 +14,8 @@ int main(){
 	unsigned long long int largo, exp, i;
 	char *a = (char *)malloc(MAX);
 	char *b = (char *)malloc(MAX);
-    	char *command = (char *)malloc(MAX*2);
-
-    	system(  "echo -n "" > result1.txt");
-
+    char *command = (char *)malloc(MAX*2);
+  	system(  "echo -n "" > result1.txt");
 	for ( exp = 1; exp <= 100000; exp = exp + 1 )
 	{
 //		printf("Exp  %llu \n \n", exp);
@@ -26,7 +24,7 @@ int main(){
 
 		// Le asignamos el size al numero(char).
 		memset(a, '0', largo);
-       		a[largo] = '\0';
+     	a[largo] = '\0';
 
 		memset(b, '0', largo);
 		b[largo] = '\0';
