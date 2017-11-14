@@ -38,7 +38,7 @@ int main(int argc, char const *argv[]) {
         mpz_urandomb(m,state, i); //genera un random desde 0.. 2^i-1
         //gmp_printf ("%i %Zd %Zd\n", i,n,m);
 
-		largo = pow(2,i) - 1;			// Calculamos el largo del numero.
+	//	largo = pow(2,i) - 1;			// Calculamos el largo del numero.
    		//memset(a, '0', largo);
      	//a[largo+1] = '\0';
 
