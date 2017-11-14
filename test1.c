@@ -35,7 +35,7 @@ int main(int argc, char const *argv[]) {
     gmp_randstate_t state; // semilla random
     gmp_randinit_default(state); //inicializa algoritmo random
     gmp_randseed_ui(state, 100); //semilla de random
-    for (i = 0; i < 1000000; i=i+100){
+    for (i = 0; i < 10500; i=i+100){
         mpz_urandomb(n,state, i); //genera un random desde 0.. 2^i-1
         mpz_urandomb(m,state, i); //genera un random desde 0.. 2^i-1
         //gmp_printf ("%i %Zd %Zd\n", i,n,m);
