@@ -1,33 +1,63 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <gmp.h>
 #include <time.h>
 
 #define I(a) (a - '0')
-#define MAX 100000000
+#define MAX 400000000
+//para funcionar se debe cambiar el main de a.c a int main(mpt_z n) y borrar las declaración, iniciacion y liberación de n
 
-void longdiv(char *a, char *c);
+
+void longdiv(const char *a, char *c);
 void longmulti(const char *a, char *c);
 void longsum(const char * a,  const char * b, char * c);
+void russianmul(char *a, char *b);
+
+    
+int main()
+{
+	FILE *archivo;
+	char caracter;
+	char *a = (char *)malloc(MAX);
+	char *b = (char *)malloc(MAX);
+	
+	archivo = fopen("prueba.txt","r");
+
+	if (archivo == NULL){
+        printf("\nError de apertura del archivo. \n\n");
+        return 0;
+    }
+
+    while( fscanf(archivo, "%s", a) != EOF ){
+        fscanf(archivo, "%s", b);
+        printf("a: %s\nb: %s\n", a,b );
+        
+        russianmul(a,b);
+    }
+    fclose(archivo);
+    free(a);
+    free(b);
+	return 0;
+}
 
 
-int main(int argc, char const *argv[]) {
+
+void russianmul(char *a, char *b) {
 	//Declaración  de variables
-	int la = strlen(argv[1]);
-    int lb = strlen(argv[2]);
-	char *a = (char *)malloc(la+1);
+	int la = strlen(a);
+    int lb = strlen(b);
 	char *aux =(char *)malloc(la+1);
-	char *b = (char *)malloc(lb+MAX+1);
 	char *aux2 = (char *)malloc(lb+MAX+1);
     char *result= (char *)malloc((la+lb)+MAX); //RESULTADO
 	char *aux3 = (char *)malloc((la+lb)+MAX);
 
-	strcpy(a,argv[1]);
-	strcpy(b,argv[2]);
     
     clock_t start, end;
     start = clock();
-
+    
+    double elapsed_time;
 	//Ciclo Multiplicación rusa
 	while (a[0]) { //Mientras a no sea 0
 		if( I(a[strlen(a)-1]) % 2){ //si a es impar
@@ -41,23 +71,20 @@ int main(int argc, char const *argv[]) {
 	}
 
 	end = clock();
-	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
+	elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	//printf("%f largo a= %i largo b = %i", elapsed_time, la , lb);
-    printf("%f", elapsed_time);
-	//printf("\n Resultado = %s\n", result);
-
+//    printf("%f", elapsed_time);
+    printf("Resultado: %s\n", result);
+    printf("Tiempo: %f\n\n", elapsed_time);
 	//Liberación memoria
-	free(a);
-	free(b);
 	free(result);
 	free(aux);
 	free(aux2);
 	free(aux3);
-	return 0;
 }
 
 
-void longdiv(char *a, char *c){
+void longdiv(const char *a, char *c){
     int la = strlen(a);
     memset(c, '0', la);
     c[la] = '\0';
