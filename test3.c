@@ -48,7 +48,7 @@ int main(int argc, char const *argv[]) {
  
         russianmul(a,b);
         printf("%llu %s %s\n    ", i,a,b);
-        time = russianmul(a,b);
+        time = russianmul(b,a);
      	snprintf ( command, 100,  "echo  %llu %f  >> result2.txt", i, time );
 
      	system(command);

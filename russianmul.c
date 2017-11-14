@@ -13,16 +13,16 @@
 void longdiv(const char *a, char *c);
 void longmulti(const char *a, char *c);
 void longsum(const char * a,  const char * b, char * c);
-void russianmul(char *a, char *b);
+double russianmul(char *a, char *b, char *result);
 
     
 int main()
 {
 	FILE *archivo;
-	char caracter;
+    double time;
 	char *a = (char *)malloc(MAX);
 	char *b = (char *)malloc(MAX);
-	
+    char *result= (char *)malloc(MAX); //RESULTADO	
 	archivo = fopen("prueba.txt","r");
 
 	if (archivo == NULL){
@@ -32,28 +32,29 @@ int main()
 
     while( fscanf(archivo, "%s", a) != EOF ){
         fscanf(archivo, "%s", b);
-        printf("a: %s\nb: %s\n", a,b );
-        
-        russianmul(a,b);
+        printf("a: %s\nb: %s\n", a,b);
+        time = russianmul(a,b,result);
+        printf("Resultado: %s\nTiempo: %f\n\n", result,time);
     }
     fclose(archivo);
     free(a);
     free(b);
+	free(result);
 	return 0;
 }
 
 
 
-void russianmul(char *a, char *b) {
+double russianmul(char *a, char *b, char *result) {
 	//Declaración  de variables
 	int la = strlen(a);
     int lb = strlen(b);
 	char *aux =(char *)malloc(la+1);
 	char *aux2 = (char *)malloc(lb+MAX+1);
-    char *result= (char *)malloc((la+lb)+MAX); //RESULTADO
 	char *aux3 = (char *)malloc((la+lb)+MAX);
 
-    
+    memset(result, '0', la+lb);
+    result[0]    = '\0';
     clock_t start, end;
     start = clock();
     
@@ -61,8 +62,8 @@ void russianmul(char *a, char *b) {
 	//Ciclo Multiplicación rusa
 	while (a[0]) { //Mientras a no sea 0
 		if( I(a[strlen(a)-1]) % 2){ //si a es impar
-				longsum(b,result,aux3); //Se suma el primer segundo número por el resultado
-				strcpy(result,aux3);
+			longsum(b,result,aux3); //Se suma el primer segundo número por el resultado
+			strcpy(result,aux3);
 		}
 		longdiv(a,aux); //se divide el primer número por 2
 		strcpy(a,aux);
@@ -72,15 +73,12 @@ void russianmul(char *a, char *b) {
 
 	end = clock();
 	elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	//printf("%f largo a= %i largo b = %i", elapsed_time, la , lb);
-//    printf("%f", elapsed_time);
-    printf("Resultado: %s\n", result);
-    printf("Tiempo: %f\n\n", elapsed_time);
+
 	//Liberación memoria
-	free(result);
 	free(aux);
 	free(aux2);
 	free(aux3);
+    return elapsed_time;
 }
 
 
