@@ -26,7 +26,7 @@ int main(int argc, char const *argv[]) {
 	char *a = (char *)malloc(MAX);
 	char *b = (char *)malloc(MAX);
     char *command = (char *)malloc(100);
-  	system(  "echo -n "" > result2.txt");
+  	system(  "echo -n "" > result2-s.txt");
 
 
     //generación del número random  
@@ -37,19 +37,19 @@ int main(int argc, char const *argv[]) {
     gmp_randinit_default(state); //inicializa algoritmo random
     gmp_randseed_ui(state, 100); //semilla de random
 
-    mpz_urandomb(m,state, 15); //genera un random desde 0.. 2^15-1
+    mpz_urandomb(m,state, 100); //genera un random desde 0.. 2^15-1
     mpz_get_str(b,10,m); 
 
-    for (i = 15; i < 10000; i++){
+    for (i = 10000; i < 350000; i=i+10000){
         mpz_urandomb(n,state, i); //genera un random desde 0.. 2^i-1
 
         
         mpz_get_str(a,10,n); 
- 
-        russianmul(a,b);
-        printf("%llu %s %s\n    ", i,a,b);
+
+
         time = russianmul(a,b);
-     	snprintf ( command, 100,  "echo  %llu %f  >> result2.txt", i, time );
+        printf("%llu %f\n    ", i,time);
+     	snprintf ( command, 100,  "echo  %llu %f  >> result2-s.txt", i, time );
 
      	system(command);
 
