@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]) {
     mpz_urandomb(m,state, 100); //genera un random desde 0.. 2^15-1
     mpz_get_str(b,10,m); 
 
-    for (i = 10000; i < 350000; i=i+10000){
+    for (i = 10000; i < 400000; i=i+10000){
         mpz_urandomb(n,state, i); //genera un random desde 0.. 2^i-1
 
         
