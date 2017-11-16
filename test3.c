@@ -37,16 +37,14 @@ int main(int argc, char const *argv[]) {
     gmp_randinit_default(state); //inicializa algoritmo random
     gmp_randseed_ui(state, 100); //semilla de random
 
-    mpz_urandomb(m,state, 100); //genera un random desde 0.. 2^15-1
-    mpz_get_str(b,10,m); 
 
+    printf(" fasdasdasd");    
     for (i = 10000; i < 400000; i=i+10000){
-        mpz_urandomb(n,state, i); //genera un random desde 0.. 2^i-1
-
-        
+        mpz_urandomb(n,state, i); //genera un random desde 0.. 2^i-1        
         mpz_get_str(a,10,n); 
-
-
+        mpz_urandomb(m,state, 100); //genera un random desde 0.. 2^100-1
+        mpz_get_str(b,10,m);
+        
         time = russianmul(b,a);
         printf("%llu %f\n    ", i,time);
      	snprintf ( command, 100,  "echo  %llu %f  >> result3-s.txt", i, time );
@@ -73,7 +71,7 @@ double russianmul(char *a, char *b) {
     char *result= (char *)malloc((la+lb)+MAX); //RESULTADO
 	char *aux3 = (char *)malloc((la+lb)+MAX);
 
-    
+
     clock_t start, end;
     start = clock();
     

@@ -46,7 +46,6 @@ int main(int argc, char const *argv[]) {
         
         mpz_get_str(a,10,n); 
 
-
         time = russianmul(a,b);
         printf("%llu %f\n    ", i,time);
      	snprintf ( command, 100,  "echo  %llu %f  >> result2-s.txt", i, time );
@@ -94,7 +93,7 @@ double russianmul(char *a, char *b) {
 	elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	//printf("%f largo a= %i largo b = %i", elapsed_time, la , lb);
 //    printf("%f", elapsed_time);
-	//printf("\n Resultado = %s\n", result);
+	printf("\n Resultado = %s\n", result);
 
 	//Liberación memoria
 	free(result);
