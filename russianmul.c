@@ -1,3 +1,10 @@
+/* ----------------------------------
+Multiplicación rusa para números grandes en C
+Nombres: Sergio Salinas, Danilo Abellá
+Compilador: gcc 5.4.0
+IDLE: gedit
+SO: Xubuntu 16.06 x86
+--------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,14 +23,14 @@ void longsum(const char * a,  const char * b, char * c);
 double russianmul(char *a, char *b, char *result);
 
     
-int main()
+int main(int argc, char const *argv[])
 {
 	FILE *archivo;
     double time;
 	char *a = (char *)malloc(MAX);
 	char *b = (char *)malloc(MAX);
     char *result= (char *)malloc(MAX); //RESULTADO	
-	archivo = fopen("prueba.txt","r");
+	archivo = fopen(argv[1],"r");
 
 	if (archivo == NULL){
         printf("\nError de apertura del archivo. \n\n");
